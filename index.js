@@ -4,30 +4,37 @@ const app = express()
 
 app.use(express.json())
 
-let notes = [
-    {
-        id: '1',
-        content: 'HTML is easy',
-        important: true
-    },
-    {
-        id: '2',
-        content: 'Browser can execute only JavaScript',
-        important: false
-    },
-    {
-        id: '3',
-        content: 'Get and POST are the most important methods of HTTP protocol',
-        important: true
-    }
+let persons = [
+    [
+        { 
+          "id": "1",
+          "name": "Arto Hellas", 
+          "number": "040-123456"
+        },
+        { 
+          "id": "2",
+          "name": "Ada Lovelace", 
+          "number": "39-44-5323523"
+        },
+        { 
+          "id": "3",
+          "name": "Dan Abramov", 
+          "number": "12-43-234345"
+        },
+        { 
+          "id": "4",
+          "name": "Mary Poppendieck", 
+          "number": "39-23-6423122"
+        }
+    ]
 ]
 
 app.get('/', (request,response) => {
     response.send('<h1>Hello world!</h1>')
 })
 
-app.get('/api/notes', (request, response) => {
-    response.json(notes)
+app.get('/api/persons', (request, response) => {
+    response.json(persons)
 })
 
 app.get('/api/notes/:id', (request, response) => {
@@ -64,7 +71,7 @@ app.post('/api/notes', (request, response) => {
     }
 
     notes = notes.concat(note)
-    
+
     response.json(note)
 })
 
