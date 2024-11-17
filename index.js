@@ -62,8 +62,28 @@ const generateRandomId = () => {
     return String(Math.floor(Math.random() * 1000))
 }
 
+function checkName (newName) {
+    for (person of persons) {
+        if (person.name == newName) {
+            return true
+        }
+    }
+    return false
+}
+
 app.post('/api/persons', (request, response) => {
     const body = request.body
+
+    if (!body.name || !body.number) {
+        return response.status(404).json({
+            error: 'content missing'
+        })
+    } 
+    else if (checkName(body.name) == true){
+        return response.status(404).json({
+            error: 'name must be unique'
+        })
+    }
 
     const person = {
         id: generateRandomId(),
