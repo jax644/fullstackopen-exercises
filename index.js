@@ -58,6 +58,23 @@ const generateId = () => {
     return String(maxId + 1)
 }
 
+const generateRandomId = () => {
+    return String(Math.floor(Math.random() * 1000))
+}
+
+app.post('/api/persons', (request, response) => {
+    const body = request.body
+
+    const person = {
+        id: generateRandomId(),
+        name: body.name,
+        number: body.number
+    }
+
+    persons = persons.concat(person)
+    response.json(person)
+})
+
 app.post('/api/notes', (request, response) => {
     const body = request.body
 
@@ -81,14 +98,6 @@ app.post('/api/notes', (request, response) => {
 app.delete('/api/persons/:id', (request,response) => {
     const id = request.params.id
     persons = persons.filter(person => person.id !== id)
-
-    response.status(204).end()
-})
-
-
-app.delete('/api/notes/:id', (request, response) => {
-    const id = request.params.id
-    notes = notes.filter(note => note.id !== id)
 
     response.status(204).end()
 })
