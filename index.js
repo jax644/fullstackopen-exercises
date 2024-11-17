@@ -51,17 +51,6 @@ app.get('/api/persons/:id', (request, response) => {
     }
 })
 
-app.get('/api/notes/:id', (request, response) => {
-    const id = request.params.id
-    const note = notes.find(note => note.id === id)
-
-    if (note) {
-        response.json(note)
-    } else {
-        response.status(404).end()
-    }
-})
-
 const generateId = () => {
     const maxId = notes.length > 0
     ? Math.max(...notes.map(n => Number(n.id)))
@@ -88,6 +77,14 @@ app.post('/api/notes', (request, response) => {
 
     response.json(note)
 })
+
+app.delete('/api/persons/:id', (request,response) => {
+    const id = request.params.id
+    persons = persons.filter(person => person.id !== id)
+
+    response.status(204).end()
+})
+
 
 app.delete('/api/notes/:id', (request, response) => {
     const id = request.params.id
